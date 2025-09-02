@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #paros{
+              transform: rotate(180deg);
+              font-size: x-large;
+              background-color: black;
+              color: white;
+              padding: 10px;
+              border: solid green 3px;
+              display: grid;
+        }
+        .elem{
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="paros" class="grid"></div>
+
+</body>
+
+<script>
+    let paros = document.querySelector("#paros");
+    for (let k = 1; k < 10; k++){
+        let row = document.createElement("div");
+        row.className="row";
+        for (let i = k*10; i < k*10+10; i+=2) {
+            let elem = document.createElement("p");
+            elem.innerHTML += "<p class='elem'>"+i+"</p>"
+            row.appendChild(elem);
+
+        }   
+        paros.appendChild(row)
+    }
+</script>
+</html>
