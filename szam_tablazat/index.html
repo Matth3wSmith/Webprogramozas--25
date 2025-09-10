@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Táblázat</title>
+    <style>
+
+    input{
+        margin-inline: 10px;
+    }
+    #tablazat,th,td{
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    </style>
+</head>
+<body>
+    <label for="szam">Adj meg egy számot [0,99]:</label>
+    <input name= "szam" id = "szam" type="number" min="0" max="99" >
+    <button onclick="mentes()">Mentés</button>
+
+    <table id="tablazat">
+        <thead>
+            <tr id="fejlec"><th>1.oszlop</th><th>2.oszlop</th></tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+
+    </table>
+    
+
+</body>
+<script>
+    let szamok = [];
+    let sor = 0;
+    let oszlop = 0;
+    let tablazat = document.getElementById("tablazat");
+
+    function mentes(){
+
+        let input = document.getElementById("szam");
+        let szam = Number(input.value);
+        if (szam<0 || szam>99){
+            input.style.color="red";
+        }
+        else{
+
+            input.style.color="green";
+            let sorIndex = Math.floor(szam/10);
+            if(sorIndex+1>sor){
+                for(let i = 0; i < sorIndex+1-sor; i++){
+                    let ujSor = document.createElement("tr");
+                    tablazat.children[1].appendChild(ujSor);
+                    szamok.push([]);
+                }
+            }
+            console.log(szamok);
+            tablazatba();
+
+        }
+    }
+    function tablazatba(){
+        
+
+
+    }
+</script>
+</html>
