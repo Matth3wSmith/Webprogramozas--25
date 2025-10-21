@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM dolgozat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="mx-auto text-center">
+        <button onclick="indit()" type="button" class="btn btn-primary m-2 ">Slider(s) inditása</button>
+    </div>
+    <div id="kepek" class=" text-center">
+    </div>
+    <figure id="slider" class="container text-center my-3">
+        <img src="" alt="" width=800 class="rounded">
+        <figcaption class="fw-bold fs-3 "></figcaption>
+    </figure>
+    <script>
+        let kepNevek = ["kermit_car","kermit_clorox","kermit_gun","kermit_hand","kermit_robin","robin"];
+        let kepLeir = ["Kermit az autóból valószínűleg bedrogozva mosolyog.", "Kermit egy clorox fehérítő társaságában tengeti napját.","Kermit egy kalasnyikovval írtja ki a Duna-delta élővilágát.","Kermit karlendítést végez.","Kermit és Robin családi fotózáson","Robin magárahagyva ücsörög a padláson."];
+        let slider = document.getElementById("slider");
+        let kepekDiv = document.getElementById("kepek");
+        let megy = false;
+        let aktualisKep = 0;
+        let interval = null;
+        for(let i = 0; i < 6; i++){
+            let img = document.createElement("img");
+            img.height = 150;
+            img.src="kepek/"+kepNevek[i]+".jpg";
+            img.title=kepLeir[i];
+            img.className="rounded mx-2 mt-2"
+            img.addEventListener("click",function(e){nagyitas(e)});
+            kepekDiv.appendChild(img);
+        }
+
+        function nagyitas(e){
+            console.log(e);
+            slider.children[0].src = e.target.src;
+            slider.children[1].innerHTML = e.target.title;
+            slider.children[0].title = e.target.title;
+
+        }
+
+        function indit(){
+            if(megy){
+                clearInterval(interval);
+                megy = false;
+            }
+            else{
+                interval = setInterval(sliding,2000);
+                megy=true;
+            }
+        }
+
+        function sliding(){
+            slider.children[0].src = "kepek/"+kepNevek[aktualisKep]+".jpg";
+            slider.children[1].innerHTML = kepLeir[aktualisKep];
+            slider.children[0].title = kepLeir[aktualisKep];
+            console.log("Fut")
+            aktualisKep++;
+            if (aktualisKep>5){
+                aktualisKep=0;
+            }
+        }
+
+
+    </script>
+</body>
+</html>
