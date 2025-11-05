@@ -33,21 +33,34 @@ function gombNyom(e){
 }
 function mozgasW(){
     y-=2;
-    hajo()
+    hajo(x,y,szog);
 }
 function mozgasA(){
     szog+=5
-    hajo();
+    hajo(x,y,szog);
 }
 function mozgasS(){
     y+=2
-    hajo();
+    hajo(x,y,szog);
 }
 function mozgasD(){
     szog-=5;
-    hajo();
+    hajo(x,y,szog);
 }
-function hajo (){
+
+function hajo (cx,cy,szog){
+    //x′​=cx​+(x−cx​)cos(szog)−(y−cy​)sin(szog)
+    //y′=cy​+(x−cx​)sin(szog)+(y−cy​)cos(szog).​ 
+    //cx,cy a középpont koordinátái (cx,cy)
+    //x,y az űrhajó csúcsa (x,y)
+    //x′​ = elforgatott pont (x2)
+    //y′​ = elforgatott pont (y2)
+    let x = cx;
+    let y = cy+60;
+    let radian = szog * Math.PI / 180;
+    let x2 = cx + (x-cx) * Math.cos(radian) - (y-cy) * Math.sin(radian);
+    let y2 = cy + (x-cx) * Math.sin(radian) - (y-cy) * Math.cos(radian);
+
     torles();
     ctx.beginPath();
     //Középső vonal
@@ -56,10 +69,10 @@ function hajo (){
 
     //Szögszár
     ctx.moveTo(x-20,y);
-    ctx.lineTo(Math.cos(szog)+x,Math.sin(szog)+(y-60));
+    ctx.lineTo(x2,y2);
 
     ctx.moveTo(x+20,y);
-    ctx.lineTo(Math.cos(szog)+x,Math.sin(szog)+(y-60));
+    ctx.lineTo(x2,y2);
 
 
     ctx.stroke();
