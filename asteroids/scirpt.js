@@ -2,7 +2,7 @@ var c;
 var ctx;
 let x = 100;
 let y = 100;
-let szog = 90;
+let szog = 0;
 function load(){
     c = document.getElementById("jatek");
     ctx = c.getContext("2d");
@@ -55,26 +55,39 @@ function hajo (cx,cy,szog){
     //x,y az űrhajó csúcsa (x,y)
     //x′​ = elforgatott pont (x2)
     //y′​ = elforgatott pont (y2)
-    let x = cx;
-    let y = cy+60;
+    let A = [cx-20,cy];
+    let B = [cx+20,cy];
+    let C = [cx,cy+60];
     let radian = szog * Math.PI / 180;
-    let x2 = cx + (x-cx) * Math.cos(radian) - (y-cy) * Math.sin(radian);
-    let y2 = cy + (x-cx) * Math.sin(radian) - (y-cy) * Math.cos(radian);
+    let C2 = forgat(cx,cy,...C,szog);
+    let A2 = forgat(cx,cy,...A,szog);
+    let B2 = forgat(cx,cy,...B,szog);
+
+
+    //Hajó középpontja
+    let xs = 
 
     torles();
     ctx.beginPath();
+
+
     //Középső vonal
-    ctx.moveTo(x-20,y);
-    ctx.lineTo(x+20,y);
+    ctx.moveTo(...A2);
+    ctx.lineTo(...B2);
 
     //Szögszár
-    ctx.moveTo(x-20,y);
-    ctx.lineTo(x2,y2);
+    ctx.moveTo(...A2);
+    ctx.lineTo(...C2);
 
-    ctx.moveTo(x+20,y);
-    ctx.lineTo(x2,y2);
+    ctx.moveTo(...B2);
+    ctx.lineTo(...C2);
 
 
     ctx.stroke();
     ctx.closePath();
+}
+
+function forgat(cx,cy,x,y,szog){
+    let radian = szog * Math.PI / 180;
+    return [cx + (x-cx) * Math.cos(radian) - (y-cy) * Math.sin(radian), cy + (x-cx) * Math.sin(radian) - (y-cy) * Math.cos(radian)];
 }
