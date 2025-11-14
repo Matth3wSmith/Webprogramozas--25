@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hőmérséklet</title>
+</head>
+<body>
+    <p id="demo">hello world</p>
+</body>
+<script>
+    let file = "adatok.json";
+    fetch (file)
+    .then(x => x.json())
+    .then(y => {
+        let text = "";
+        for (let i of y) {
+            text += `<p>${i.nev}: ${i.homerseklet}°C</p>`;
+        }
+        document.getElementById("demo").innerHTML = text;
+    });
+</script>
+</html>
