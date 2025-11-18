@@ -4,20 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hőmérséklet</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+            text-align: center;
+        }
+        input,label{
+            margin-top: 10px;
+        }
+    </style>
 </head>
 <body>
+
+    <!--
+    Jelenítse meg az aktuális időpontban mind a 10 város hőmérsékletét
+    Városnevek szerint legyen rendezve
+    Napi átlag hőmérséklet
+    7-5-ig a hőmérséklet átlaga, országosan
+    Max és min hőmérséklet, városa, ha egyezés van mindegyik város kiírása
+    --->
+
     <p id="demo">hello world</p>
+    <table id = "table">
+        <tr id="header">
+            <th>Település</th>
+        </tr>
+    </table>
+
+    <label for="ido">Adj meg egy időpontot: </label>
+    <input type="text" name="" id="ido">
+    <button onclick="idoHomerseklet()">Megjelenítés</button>
 </body>
 <script>
+    //Fejlécsor feltöltése
+    let header = document.getElementById("header");
+    let table = document.getElementById("table");
+    for(let i = 0; i < 24; i++){
+        header.innerHTML += `<th>${i}:00</th>`;
+    }
     let file = "adatok.json";
     fetch (file)
     .then(x => x.json())
-    .then(y => {
-        let text = "";
-        for (let i of y) {
-            text += `<p>${i.nev}: ${i.homerseklet}°C</p>`;
-        }
-        document.getElementById("demo").innerHTML = text;
+    .then(adatok => {
+        Object.values(adatok).map((foktomb, i)=> {
+            let tr = document.createElement("tr");
+            tr.innerHTML += `<td>${Object.keys(adatok)[i]}</td>`;
+            foktomb.map(fok => tr.innerHTML += `<td>${fok}</td>`);
+            table.appendChild(tr);
+        });
     });
+
+    function idoHomerseklet(){
+        
+    }
 </script>
 </html>
