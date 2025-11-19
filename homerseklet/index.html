@@ -16,6 +16,9 @@
         input,label{
             margin-top: 10px;
         }
+        .hidden{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -29,14 +32,18 @@
     --->
 
     <p id="demo">hello world</p>
-    <table id = "table">
+    <table id = "table" >
         <tr id="header">
             <th>Település</th>
         </tr>
     </table>
 
+    <table id="elsoF" class="hidden">
+        <tr>
+        </tr>
+    </table>
     <label for="ido">Adj meg egy időpontot: </label>
-    <input type="text" name="" id="ido">
+    <input type="number" name="" id="ido">
     <button onclick="idoHomerseklet()">Megjelenítés</button>
 </body>
 <script>
@@ -54,12 +61,32 @@
             let tr = document.createElement("tr");
             tr.innerHTML += `<td>${Object.keys(adatok)[i]}</td>`;
             foktomb.map(fok => tr.innerHTML += `<td>${fok}</td>`);
-            table.appendChild(tr);
+            table.children[0].appendChild(tr);
         });
+
     });
 
-    function idoHomerseklet(){
-        
+    function  idoHomerseklet(){
+        let idopont = Number(document.getElementById("ido").value);
+        let elsoF = document.getElementById("elsoF");
+        fetch (file)
+        .then(x => x.json())
+        .then(adatok =>{
+            console.log(adatok);
+            elsoF.classList.remove("hidden");
+            console.log(elsoF.children);
+            elsoF.children[0].children[0].innerHTML=""
+            elsoF.children[0].children[0].innerHTML += `<td>${idopont}:00</td>`;
+            for (let i = 0; i < Object.values(adatok).length;i++){
+                elsoF.children[0].children[0].innerHTML += `<td>${Object.values(adatok)[i][idopont]}</td>`;
+            }
+            Array.from(table.children[0].children).map(tr => {
+                console.log(tr);
+                console.log(tr.children);
+                console.log(tr.children[idopont + 1]);
+                tr.children[idopont + 1].style.backgroundColor = "yellow";
+            })
+        });
     }
 </script>
 </html>
