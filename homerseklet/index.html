@@ -19,6 +19,13 @@
         .hidden{
             display: none;
         }
+        #elsoF{
+            margin-top: 10px;
+        }
+        #elsoF td{
+            width: 30px;
+            height: 20px;
+        }
     </style>
 </head>
 <body>
@@ -39,51 +46,93 @@
     </table>
 
     <table id="elsoF" class="hidden">
-        <tr>
-        </tr>
+        <tr></tr>
+        <tr></tr>
     </table>
     <label for="ido">Adj meg egy időpontot: </label>
-    <input type="number" name="" id="ido">
+    <input type="number" name="" id="ido" min="0" max="23">
     <button onclick="idoHomerseklet()">Megjelenítés</button>
 </body>
 <script>
     //Fejlécsor feltöltése
     let header = document.getElementById("header");
     let table = document.getElementById("table");
+    let elozoido = 0;
+    //Táblázat fejlécének feltöltése az órákkal
     for(let i = 0; i < 24; i++){
         header.innerHTML += `<th>${i}:00</th>`;
     }
+    //Táblázat napi átlag oszlopa
+    header.innerHTML += `<th>Napi átlag</th>`;
     let file = "adatok.json";
     fetch (file)
     .then(x => x.json())
     .then(adatok => {
+        console.log(adatok);
         Object.values(adatok).map((foktomb, i)=> {
+            //Új sor
             let tr = document.createElement("tr");
+            //Település név hozzáadása
             tr.innerHTML += `<td>${Object.keys(adatok)[i]}</td>`;
+            //Hőmérséklet hozzáadása
             foktomb.map(fok => tr.innerHTML += `<td>${fok}</td>`);
+
+            //Napi átlag hőmérséklet kiszámítása
+            tr.innerHTML += `<td>${((foktomb.reduce( (x,y)=> x+y , 0)) / 24).toFixed(2)}</td>`;
+
+            //Sor hozzáadása a táblázathoz
             table.children[0].appendChild(tr);
         });
+        //Órás átlag és a végén az országos átlag
+        //Új sor
+        let atlagTr = document.createElement("tr");
+        let osszSum = 0;
+        atlagTr.innerHTML += `<td>Órás átlag</td>`;
+        for(let i = 0; i < 24; i++){
+            let sum = Object.values(adatok).reduce( (elozo,jelenlegi) => jelenlegi[i] + elozo , 0);
+            osszSum += sum;
+            let atlag = sum / 10 ;
+            atlagTr.innerHTML += `<td>${atlag.toFixed(2)}</td>`;
+        }
+        //Országos átlag
+        atlagTr.innerHTML += `<td>${(osszSum / 240).toFixed(2)}</td>`;
+        table.children[0].appendChild(atlagTr);
+
 
     });
 
     function  idoHomerseklet(){
+        //Előző időpont háttérszín visszaállítása
+        Array.from(table.children[0].children).map(tr => {
+            tr.children[elozoido + 1].style.backgroundColor = "white";
+        })
+        //Aktuális időpont lekérése
         let idopont = Number(document.getElementById("ido").value);
+        elozoido = idopont;
         let elsoF = document.getElementById("elsoF");
+        //Adatok beolvasása és lekért időpontok kigyűjtése egy táblázatba majd a nagy táblázat releváns oszlopának kiemelése
         fetch (file)
         .then(x => x.json())
         .then(adatok =>{
-            console.log(adatok);
             elsoF.classList.remove("hidden");
-            console.log(elsoF.children);
-            elsoF.children[0].children[0].innerHTML=""
-            elsoF.children[0].children[0].innerHTML += `<td>${idopont}:00</td>`;
+            let fejlec = elsoF.children[0].children[0];
+            let adatSor = elsoF.children[0].children[1];
+            fejlec.innerHTML = `<td>Időpont</td>`;
+            adatSor.innerHTML += `<td>${idopont}:00</td>`;
+            //Városok rendezése név szerint 
+            adatok = Object.keys(adatok).sort().reduce(
+                (obj, key) => { 
+                    obj[key] = adatok[key]; 
+                    return obj;
+                }, 
+                {}
+            );
             for (let i = 0; i < Object.values(adatok).length;i++){
-                elsoF.children[0].children[0].innerHTML += `<td>${Object.values(adatok)[i][idopont]}</td>`;
+                fejlec.innerHTML += `<td>${Object.keys(adatok)[i]}</td>`;
+                adatSor.innerHTML += `<td>${Object.values(adatok)[i][idopont]}</td>`;
             }
+            //Releváns oszlop kiemelése
             Array.from(table.children[0].children).map(tr => {
-                console.log(tr);
-                console.log(tr.children);
-                console.log(tr.children[idopont + 1]);
                 tr.children[idopont + 1].style.backgroundColor = "yellow";
             })
         });
