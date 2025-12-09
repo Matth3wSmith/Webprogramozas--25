@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Dolgozat</title>
+	<style>
+		td{
+			padding:0;
+			font-size: 0;
+		}
+		table{
+			border-spacing: 0;
+			margin:auto;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		<!-- ide írd a programot -->
+		let table = document.createElement("table");
+		
+
+		let file = "images.json";
+		fetch(file)
+		.then(x=>x.json())
+		.then(x=>{
+			x.data.sort((kep1,kep2)=>Number(kep1.src.split("_")[2].split(".")[0])-Number(kep2.src.split("_")[2].split(".")[0]))
+		
+			console.log(x);
+
+			tablaConfig(x.tableSize.rows, x.tableSize.cols, x);
+		})
+		function tablaConfig(sor,oszlop,obj){
+			for(let i = 0; i < sor; i++)
+			{
+				let tr = document.createElement("tr");
+				for(let k = 0; k < oszlop; k++){
+					let td = document.createElement("td");
+					let img = document.createElement("img");
+					let index = i*oszlop + k;
+					console.log(index);
+					img.src = obj.baseurl+obj.data[index].src;
+					img.width = obj.data[index].size.widt;
+					img.height = obj.data[index].size.heigt;
+					td.appendChild(img);
+					tr.appendChild(td);
+					
+				}
+				table.appendChild(tr);
+			}
+			document.body.appendChild(table)
+		}
+	</script>
+</body>
+</html>
