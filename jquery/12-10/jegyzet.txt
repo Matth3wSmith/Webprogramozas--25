@@ -1,0 +1,10 @@
+div class container
+	div class row
+		div class col-12 col-lg4
+
+
+feladat:
+még egy div ez alá a bootstrapes minta alapján
+tartalmi div -> első gomb tüntesse el
+                második gomb jelenítse meg
+                harmadik gomb toggle (ha látszik tüntesse el, ha nem, jelenítse meg)
