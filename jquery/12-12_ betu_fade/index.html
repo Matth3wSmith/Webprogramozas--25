@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        p{
+            font-size: 300px;
+        }
+        body{
+            text-align: center;
+        }
+        .invisible {
+            display: inline-block;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p id="szoveg"></p>
+    </div>
+</body>
+<script>
+    let nev = "McDonald's";
+    for (let elem of nev){
+        let span = $("<span>"+elem+"</span>");
+        $("#szoveg").append(span);
+        span.hide();
+    }
+    let ido = 500;
+    let i = 0;
+
+    setInterval(() => {
+        if (i==0){
+            $("#szoveg span").eq(i).fadeIn(ido);
+        }
+        else{
+            $("#szoveg span").eq(i).fadeIn(ido);
+            $("#szoveg span").eq(i-1).fadeOut(ido)
+            $("#szoveg span").eq(i-1).addClass("invisible");
+        }
+        i++;
+    }, ido*1.5);
+
+    
+</script>
+</html>

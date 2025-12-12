@@ -1,0 +1,5 @@
+Feladat jQuery használatával
+ - szöveg konstans McDonalds értéke
+ - betűnként megjelenítés
+ - első betű befade-el
+ - második betű az első megjelenése utána a második betű is befade-el, közben az első betű eltűnik
