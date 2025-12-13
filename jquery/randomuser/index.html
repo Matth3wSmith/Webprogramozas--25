@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random User</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body onload="ember()">
+    <div class="container">
+        <div class="row">
+            <div class="kep" id="kartya" onclick="ember()"></div>
+        </div>
+    </div>
+</body>
+<script>
+
+    function ember(){
+        $.ajax({
+            url: 'https://randomuser.me/api/',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                data = data.results[0];
+                let kepDiv = $("#kartya");
+                kepDiv.fadeOut(1000);
+                setTimeout(() => {
+                    kepDiv.empty();
+                    let kep = $("<img>",{
+                        src: data.picture.medium
+                    });
+                    kepDiv.append(kep);
+                    kepDiv.append($("<p>"+Object.values(data.name).join(" ")+"</p>"));
+                    kepDiv.fadeIn(1000);
+                }, 1000);
+                    
+            }
+        });
+
+
+    }
+    
+</script>
+</html>
