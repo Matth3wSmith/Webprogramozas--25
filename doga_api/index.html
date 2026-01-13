@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolgozat</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+
+    </style>
+
+</head>
+<body>
+    <p>1.feladat</p>
+    <label for="num">Faktoriális számolás:</label>
+    <input type="number" max="20" min="1" id="num"><br>
+    <button id="numBtn">Küldés</button>
+    <p>Eredmény: <span id="erdemeny1"></span></p>
+
+    <p>2.feladat</p>
+    <label for="szorzat">Szorzat számolás:</label>
+    <input type="number"  id="szorzat1" > <input type="number" id="szorzat2" ><br>
+    <button id="szorzatBtn">Küldés</button>
+    <p>Eredmény: <span id="erdemeny2"></span></p>
+
+    <p>3.feladat</p>
+    <label for="haromszog">Háromszög terület számolás:</label>
+    <input type="number"  id="oldal1" > <input type="number" id="oldal2" > <input type="number" id="oldal3" ><br>
+    <button id="haromszogBtn">Küldés</button>
+    <p>Eredmény: <span id="erdemeny3"></span></p>
+
+    <p>4.feladat</p>
+    <p>Random szám generálás [0,x]</p>
+    <label for="random">x:</label>
+    <input type="number"  id="x1" ><br>
+    <button id="random1Btn">Küldés</button>
+    <p>Eredmény: <span id="erdemeny4"></span></p>
+
+    <p>5.feladat</p>
+    <p>Random szám generálás [y,x]</p>
+    <label for="random">y:</label>
+    <input type="number"  id="y2" >
+    <label for="random">x:</label>
+    <input type="number"  id="x2" ><br>
+    <button id="random2Btn">Küldés</button>
+    <p>Eredmény: <span id="erdemeny5"></span></p>
+
+    <p>6.feladat</p>
+      <h3>OUT OF ORDER</h3>
+    <p>Random szám generálás [y,x] ----- Ha y és lépés üres akkor a generálás: [0,x] ----- Lépést csak y megadásakor lehet használni</p>
+  
+    <label >y:</label>
+    <input type="number"  id="y3" disabled>
+    <label >x:</label>
+    <input type="number"  id="x3" disabled >
+    <label >Lépés:</label>
+    <input type="number"  id="lepes" disabled><br>
+    <button id="random3Btn">Küldés</button>
+    <p>Eredmény: <span id="erdemeny6"></span></p>
+
+    <p>6.feladat</p>
+    <label >Lorem Ipsum mondatszám:</label>
+    <input type="number"  id="lorem" ><br>
+    <button id="loremBtn">Küldés</button>
+    <p>Eredmény: <span id="erdemeny7"></span></p>
+
+    <script>
+        $("#numBtn").click(function(){
+            $.ajax({
+                url:"https://pepa.hu/api/matekos/fakt/"+$("#num").val(),
+                success: function(result){
+                    console.log(result.eredmeny)
+                    $("#erdemeny1").html(result.eredmeny)
+                }
+            })
+        })
+        $("#szorzatBtn").click(function(){
+            $.ajax({
+                url:"https://pepa.hu/api/matekos/szorzat/"+$("#szorzat1").val()+"/"+$("#szorzat2").val(),
+                success: function(result){
+                    console.log(result.eredmeny)
+                    $("#erdemeny2").html(result.eredmeny)
+                }
+            })
+        })
+        $("#haromszogBtn").click(function(){
+            console.log("https://pepa.hu/api/matekos/haromszog/"+$("#oldal1").val()+"/"+$("#oldal2").val()+"/"+$("#oldal3").val())
+            $.ajax({
+
+                url:"https://pepa.hu/api/matekos/haromszog/"+$("#oldal1").val()+"/"+$("#oldal2").val()+"/"+$("#oldal3").val(),
+                success: function(result){
+                    console.log(result)
+                    $("#erdemeny3").html(result.terulet)
+                }
+            })
+        })
+        $("#random1Btn").click(function(){
+            $.ajax({
+                url:"https://pepa.hu/api/matekos/random/"+$("#x1").val(),
+                success: function(result){
+                    console.log(result)
+                    $("#erdemeny4").html(result.szam)
+                }
+            })
+        })
+        /*$("#random2Btn").click(function(){
+            let link = "https://pepa.hu/api/matekos/random/";
+            let lista = [$("#y2").val(),$("#x2").val(),$("#lepes").val()]
+            $.ajax({
+                url: link,
+                success: function(result){
+                    console.log(result)
+                    $("#erdemeny5").html(result.szam)
+                }
+            })
+        })*/
+        $("#loremBtn").click(function(){
+            $.ajax({
+                url:"https://pepa.hu/api/matekos/lorem/"+$("#lorem").val(),
+                success: function(result){
+                    console.log(result)
+                    $("#erdemeny7").html(result.szoveg)
+                }
+            })
+        })
+    </script>
+</body>
+</html>
