@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <input type="text" id="SzovegIn">
+
+
+    <script>
+        $("#SzovegIn").on("keyup",function(event){
+            let pattern = /^[0-9]{4}$/
+            let pattern2 = /^\w\s\w$/
+            let pattern3 = /[A-ZŐÚŰÁÉÓÜÖÍ]*/gi
+            
+            let input = event.target;
+            input.value.matchAll(pattern3).forEach(element => {
+                console.log(element);
+            });
+            
+            if (pattern.test(input.value)){
+                input.style.color = "black";
+            }
+            else{
+                input.style.color = "red";
+            }
+        })
+    </script>
+</body>
+</html>

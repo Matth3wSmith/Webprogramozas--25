@@ -1,0 +1,3 @@
+Szövegbekérés, ha négyjegyű számot írunk be akkor legyen fekete, ha nem négyjegyű akkor piros
+két szónál több akkor piros
+egy szó kettő karakter legalább
