@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Órai</title>
+</head>
+<body>
+    <input type="text" id="szoveg">
+    <button onclick="Ellenorzes()">Ellenőrzés</button>
+    <div id="szoveges">
+
+    </div>
+
+
+</body>
+<script>
+    let szotar = {
+        1:{sima:"egy",rag:"tizen"},
+        2:{sima:"kettő",rag:"huszon"},
+        3:{sima:"három",rag:"harminc"},
+        4:{sima:"négy",rag:"negyven"},
+        5:{sima:"öt",rag:"ötven"},
+        6:{sima:"hat",rag:"hatvan"},
+        7:{sima:"hét",rag:"hetven"},
+        8:{sima:"nyolc",rag:"nyolcvan"},
+        9:{sima:"kilenc",rag:"kilencven"},
+        10:{sima:"tíz"},
+        20:{sima:"húsz"}
+    }
+
+
+    function Ellenorzes(){
+        let pattern = /^((([0-1][0-9])|([2][0-3])):[0-5][0-9]:[0-5][0-9])$/
+        //let pattern = /[0-1][0-9]:[0-5][0-9]:[0-5][0-9]/
+
+        console.log(szoveg.value)
+        console.log(pattern.test(szoveg.value))
+
+        let pattern2 = /^((?<ora>([0-1][0-9])|([2][0-3])):(?<perc>[0-5][0-9]):(?<sec>[0-5][0-9]))$/
+        let match = szoveg.value.match(pattern2)
+        //Ha nem nullára végződik
+        console.log(match.groups.ora[0])
+        console.log(match.groups.ora[1])
+
+        if(match.groups.ora[1]!=0){
+            if(match.groups.ora[0]!=0){
+                console.log(match.groups.ora[0])
+                console.log(match.groups.ora[1])
+                console.log(szotar[match.groups.ora[0]].rag+szotar[match.groups.ora[1]].sima+" óra")
+            }
+            else{
+                console.log(szotar[match.groups.ev[1]].sima)
+            }
+        }
+        if(match.groups.perc[1]!=0){
+            if(match.groups.perc[0]!=0){
+                console.log(match.groups.ora[0])
+                console.log(match.groups.ora[1])
+                console.log(szotar[match.groups.perc[0]].rag+szotar[match.groups.perc[1]].sima+" perc")
+            }
+            else{
+                console.log(szotar[match.groups.ev[1]].sima)
+            }
+        }
+        console.log(match.groups.ora)
+        console.log(match.groups.perc)
+        console.log(match.groups.sec)
+
+    }
+</script>
+</html>
