@@ -1,0 +1,7 @@
+Kérjünk be egy magyar nevet => betűkből áll -- két vezetéknevet köthet össze kötőjel, legalább két karakteres a nevek
+döntsük el regexp-el gépelés közben hogy helyes-e
+helytelen: piros háttér fehér szöveg
+helyes: fehér háttér sötétzöld betű
+
+legyen egy gomb, ami hatására a magyar nevet amerikai helyesírás szerint írja ki
+

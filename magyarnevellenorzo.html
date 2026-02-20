@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="">Írj meg egy magyar nevet:</label>
+    <input type="text" id="magyarNev">
+    <button onclick="angol()">Angol helyesírás</button>
+    <p id="angolNev"></p>
+</body>
+<script>
+    magyarNev.addEventListener("keyup", function(){
+        let nev = magyarNev.value;
+        let pattern = /^([A-ZŰÁÉÚŐÓÜÖÍ]+|([A-ZŰÁÉÚŐÓÜÖÍ]+-[A-ZŰÁÉÚŐÓÜÖÍ]+)) (([A-ZÉÁŰÚŐÓÜÖÍ]{2,})|([A-ZÉÁŰÚŐÓÜÖÍ]{2,} [A-ZÉÁŰÚŐÓÜÖÍ]{2,}))$/i;
+        if(pattern.test(nev)){
+            magyarNev.style.backgroundColor = "white";
+            magyarNev.style.color = "darkgreen";
+        } else {
+            magyarNev.style.backgroundColor = "red";
+            magyarNev.style.color = "white";
+        }
+    })
+
+    function angol(){
+        let splitelt = magyarNev.value.split(" ").reverse();
+        for(let i = 0; i < splitelt.length; i++){
+            splitelt[i] = csere(splitelt[i]);
+        }
+        angolNev.innerHTML = splitelt.join(" ");
+    }
+    function csere(szoveg){
+        let szoveg2 = szoveg.replace(/Á/g, "A").replace(/É/g, "E").replace(/Í/g, "I").replace(/Ü/g, "U").replace(/Ű/g, "U").replace(/Ú/g, "U").replace(/Ő/g, "O").replace(/Ó/g, "O").replace(/Ö/g,"O");
+        szoveg2=szoveg2.replace(/á/g, "a").replace(/é/g, "e").replace(/í/g, "i").replace(/ü/g, "u").replace(/ű/g, "u").replace(/ú/g, "u").replace(/ő/g, "o").replace(/ó/g, "o").replace(/ö/g,"o");
+        return szoveg2;
+    }
+</script>
+</html>
