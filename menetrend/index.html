@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menetrend</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="atf_17">
+        <div class="responsive-container-block big-continer">
+            <div class="carousel">
+                <img id="bgImg" class="bg-img" src="train1.jpg" alt="background">
+                <button class="carousel-btn prev" aria-label="Previous">‹</button>
+                <button class="carousel-btn next" aria-label="Next">›</button>
+                <div class="dots" id="dots"></div>
+            </div>
+
+            <div class="responsive-container-block container">
+                <p class="text-blk landing19-head">
+                    Mentrendek érettségi feladat.
+                </p>
+                <p class="text-blk landing19-subhead">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elementum sit dignissim.
+                </p>
+                <form class="form-box">
+                    <div class="responsive-container-block input-box">
+                        <div class="responsive-cell-block wk-desk-2 wk-ipadp-2 wk-mobile-12 wk-tab-7" id="i8zz8">
+                            <input class="input" name="Name" placeholder="Name">
+                        </div>
+                        <div class="responsive-cell-block wk-desk-2 wk-ipadp-2 wk-mobile-12 wk-tab-7" id="i190k">
+                            <input class="input" name="Email" placeholder="Email">
+                        </div>
+                        <div class="responsive-cell-block wk-ipadp-2 wk-desk-2 wk-mobile-12 wk-tab-7" id="ifgbj">
+                            <input class="input" name="Location" placeholder="Location">
+                        </div>
+                        <div class="responsive-cell-block wk-mobile-12 wk-desk-3 wk-ipadp-3 wk-tab-7" id="iewq9">
+                            <button class="button" id="i901w">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .carousel { position: relative; overflow: hidden; }
+        .bg-img { width: 100%; height: auto; display: block; max-height: 420px; object-fit: cover; }
+        .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,.4); color: #fff; border: 0; padding: 8px 12px; cursor: pointer; font-size: 20px; line-height: 1; }
+        .carousel-btn.prev { left: 8px; }
+        .carousel-btn.next { right: 8px; }
+        .dots { position: absolute; left: 50%; transform: translateX(-50%); bottom: 10px; display: flex; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.5); border: 0; cursor: pointer; padding: 0; }
+        .dot.active { background: #fff; }
+    </style>
+
+    <script>
+        (function() {
+            const imgs = ['train1.jpg', 'train2.jpg', 'train3.jpg']; // add your image filenames here
+            let idx = 0;
+            const imgEl = document.getElementById('bgImg');
+            const dotsContainer = document.getElementById('dots');
+
+            function show(i) {
+                idx = (i + imgs.length) % imgs.length;
+                imgEl.src = imgs[idx];
+                Array.from(dotsContainer.children).forEach((d, di) => d.classList.toggle('active', di === idx));
+            }
+
+            // create dots
+            imgs.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'dot';
+                btn.type = 'button';
+                btn.setAttribute('aria-label', 'Show image ' + (i + 1));
+                btn.addEventListener('click', () => show(i));
+                dotsContainer.appendChild(btn);
+            });
+
+            document.querySelector('.carousel .prev').addEventListener('click', () => show(idx - 1));
+            document.querySelector('.carousel .next').addEventListener('click', () => show(idx + 1));
+
+            // auto-rotate with pause on hover
+            let timer = setInterval(() => show(idx + 1), 5000);
+            const carouselEl = document.querySelector('.carousel');
+            carouselEl.addEventListener('mouseenter', () => clearInterval(timer));
+            carouselEl.addEventListener('mouseleave', () => timer = setInterval(() => show(idx + 1), 5000));
+
+            show(0);
+        })();
+    </script>
+</body>
+
+</html>
