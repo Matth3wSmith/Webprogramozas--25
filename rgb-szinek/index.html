@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RGB színek</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css">
     <style>
         td{
             width: 1px;
@@ -15,14 +16,25 @@
             width: 320px;
             height: 280px;
         }
-        #kepVaszon {
+        /*#kepVaszon {
             border: 1px solid black;
-        }
+        }*/
     </style>
 </head>
 <body>
+    <div class="container text-center m-auto">
+        <div class="row">
+            <div class="col-6">
+                <h1>RGB színek</h1>
+                <canvas id="kepVaszon" width="640" height="360" class="shadow-lg"></canvas>
+            </div>
+            <div class="col-6 shadow bg-success bg-gradient rounded,">
+                    <h1 class="shadow-lg m-2 p-2 texxt-black link-info link-underline-opacity-100-hover link-offset-2 link-underline-opacity-25">Érettségi feladatok</h1>
+            </div>
+        </div>
 
-    <canvas id="kepVaszon" width="640" height="360"></canvas>
+    </div>
+
 
    <!--
     <table>
