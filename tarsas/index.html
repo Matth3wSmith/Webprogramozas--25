@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Társas</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Társas</h1>
+    <div>
+        <h3>2. feladat</h3>
+        <p>A dobások száma: <span id="f2D"></span></p>
+        <p>Az ösvények száma: <span id="f2O"></span></p>
+        <button type="button" onclick="f2()">Lekérés</button>
+    </div>
+    <div>
+        <button type="button" onclick="f3()">Lekérés</button>
+
+    </div>
+</body>
+<script>
+    let filename = "dobasok.txt";
+    let dobasok = [];
+    let osvenyek = [];
+    //1. feladat
+    $.get(filename, data => {
+        let adatok = data.split(" ").map(x => parseInt(x));
+        dobasok = adatok;
+    });    
+    $.get("osvenyek.txt", data => {
+        let adatok = data.trim().split("\r\n");
+        osvenyek = adatok;
+    });
+    
+    function f2(){
+        $("#f2D").html(dobasok.length);
+        $("#f2O").html(osvenyek.length);
+    }
+
+    function f3(){
+        let maxHossz = Math.max(...osvenyek.map(x=>x.length));
+        let index = osvenyek.map(x=>x.length).indexOf(maxHossz);
+        console.log("maxhossz ",maxHossz," sorszam: ",index+1)
+    }
+</script>
+</html>
