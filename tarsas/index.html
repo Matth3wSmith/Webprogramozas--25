@@ -5,19 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Társas</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
 </head>
 <body>
     <h1>Társas</h1>
-    <div>
-        <h3>2. feladat</h3>
-        <p>A dobások száma: <span id="f2D"></span></p>
-        <p>Az ösvények száma: <span id="f2O"></span></p>
-        <button type="button" onclick="f2()">Lekérés</button>
-    </div>
-    <div>
-        <button type="button" onclick="f3()">Lekérés</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h3>2. feladat</h3>
+                <p>A dobások száma: <span id="f2D"></span></p>
+                <p>Az ösvények száma: <span id="f2O"></span></p>
+                <button type="button" class="btn btn-danger" onclick="f2()">Lekérés</button>
+            </div>
+            <div class="col-6">
+                <h3>3. feladat</h3>
+                <p>Az egyik leghosszabb a(z) <span id="sorszam"></span>. ösvény, hossza: <span id="hossz"></span></p>
+                <button type="button" class="btn btn-danger" onclick="f3()">Lekérés</button>
 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <h3>4. feladat</h3>
+                <select id="osvenyek">
+                    <option value="" selected>Válassz ösvényt!</option>
+                </select>
+            </div>
+        </div>
     </div>
+        
 </body>
 <script>
     let filename = "dobasok.txt";
@@ -31,6 +49,8 @@
     $.get("osvenyek.txt", data => {
         let adatok = data.trim().split("\r\n");
         osvenyek = adatok;
+        console.log(osvenyek)
+        f4();
     });
     
     function f2(){
@@ -39,9 +59,24 @@
     }
 
     function f3(){
-        let maxHossz = Math.max(...osvenyek.map(x=>x.length));
-        let index = osvenyek.map(x=>x.length).indexOf(maxHossz);
-        console.log("maxhossz ",maxHossz," sorszam: ",index+1)
+        let hosszTomb = osvenyek.map(x=>x.length);
+        let maxHossz = Math.max(...hosszTomb);
+        let index = hosszTomb.indexOf(maxHossz);
+        console.log("maxhossz ",maxHossz," sorszam: ",index+1);
+        $("#sorszam").html(index+1);
+        $("#hossz").html(maxHossz);
+        //document.querySelector("#sorszam").innerHTML=index+1;
     }
+    function f4(){
+        let select = document.getElementById("osvenyek");
+        osvenyek.forEach((x,index)=>{
+            let option = document.createElement("option");
+            option.innerHTML = (index+1)+". ("+x.length+")";
+            select.append()
+            
+        })
+    }
+
+
 </script>
 </html>
